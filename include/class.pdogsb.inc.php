@@ -30,7 +30,7 @@ class PdoGsb{
     	PdoGsb::$monPdo = new PDO(PdoGsb::$serveur.';'.PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp); 
 		PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
 	}
-	public function _destruct(){
+	public function _destruct(){ 
 		PdoGsb::$monPdo = null;
 	}
 /**
@@ -51,10 +51,10 @@ class PdoGsb{
  
  * @param $login 
  * @param $mdp
- * @return l'id, le nom et le prÃ©nom sous la forme d'un tableau associatif 
+ * @return l'id, le nom, le prénom et la valeur vrai si comptable, sous la forme d'un tableau associatif 
 */
 	public function getInfosVisiteur($login, $mdp){
-		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
+		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.comptable as comptable from visiteur 
 		where visiteur.login='$login' and visiteur.mdp='$mdp'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();

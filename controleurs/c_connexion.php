@@ -21,6 +21,7 @@ switch($action){
 			$id = $visiteur['id'];
 			$nom =  $visiteur['nom'];
 			$prenom = $visiteur['prenom'];
+                        $comptable = $visiteur['comptable'];
 			connecter($id,$nom,$prenom);
 			include("vues/v_sommaire.php");
 		}
