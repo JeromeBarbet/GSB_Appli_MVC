@@ -200,4 +200,22 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
+
+/**
+ * Retourne le mois formaté afin de clarifier l'affichage
+ * 
+ * @param le mois sous forme yyyymm
+ * @return le mois sous forme mm/yyyy
+ */
+function formatMois($leMois){
+    $mois = "";
+    for ($i = 4; $i < 6; $i++){
+        $mois .= substr($leMois, $i, 1);
+    }
+    $mois .= "/";
+    for ($i = 0; $i < 4; $i++){
+        $mois .= substr($leMois, $i, 1);
+    }
+    return $mois;
+}
 ?>

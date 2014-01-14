@@ -300,18 +300,13 @@ class PdoGsb{
 /**
  * Retourne la liste des visiteurs ayant au moins une fiche de frais dans la BD
  * 
- * @return un tableau d'id de visiteurs
+ * @return un tableau de visiteurs contenant pour chaque visiteur id, nom, prenom
  */
-        public function getLesIdVisiteurs(){
-            $req = "select distinct visiteur.id as idVisiteur from visiteur "
+        public function getLesVisiteurs(){
+            $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur "
                     . "where visiteur.comptable = 0";
             $res = PdoGsb::$monPdo->query($req);
-            $laLigne = $res->fetch();
-            $lesVisiteurs = array();
-            while ($laLigne != null){
-                $lesVisiteurs[] = $laLigne['idVisiteur'];
-                $laLigne =  $res->fetch();
-            }
+            $lesVisiteurs = $res->fetchAll();
             return $lesVisiteurs;
         }
 
@@ -323,12 +318,7 @@ class PdoGsb{
         public function getLesMois(){
             $req = "select distinct fichefrais.mois as mois from fichefrais";
             $res = PdoGsb::$monPdo->query($req);
-            $laLigne = $res->fetch();
-            $lesMois = array();
-            while ($laLigne != null){
-                $lesMois[] = $laLigne['mois'];
-                $laLigne = $res->fetch();
-            }
+            $lesMois = $res->fetchAll();
             return $lesMois;
         }
 /**
@@ -339,7 +329,7 @@ class PdoGsb{
  */
         public function getInfosDuVisiteur($idVisiteur){
             $req = "select visiteur.nom as nom, visiteur.prenom as prenom from visiteur "
-                    . "where visiteur.id = '". $idVisiteur ."' and visiteur.comptable = 0";
+                    . "where visiteur.id = '". $idVisiteur ."'";
             $res = PdoGsb::$monPdo->query($req);
             $laLigne = $res->fetch();
             return $laLigne;
