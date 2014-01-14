@@ -297,5 +297,53 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
+/**
+ * Retourne la liste des visiteurs ayant au moins une fiche de frais dans la BD
+ * 
+ * @return un tableau d'id de visiteurs
+ */
+        public function getLesIdVisiteurs(){
+            $req = "select distinct visiteur.id as idVisiteur from visiteur "
+                    . "where visiteur.comptable = 0";
+            $res = PdoGsb::$monPdo->query($req);
+            $laLigne = $res->fetch();
+            $lesVisiteurs = array();
+            while ($laLigne != null){
+                $lesVisiteurs[] = $laLigne['idVisiteur'];
+                $laLigne =  $res->fetch();
+            }
+            return $lesVisiteurs;
+        }
+
+/** 
+ * Retourne la liste des mois ayant au moins une fiche de frais dans la BD
+ * 
+ * @return un tableau de mois
+ */
+        public function getLesMois(){
+            $req = "select distinct fichefrais.mois as mois from fichefrais";
+            $res = PdoGsb::$monPdo->query($req);
+            $laLigne = $res->fetch();
+            $lesMois = array();
+            while ($laLigne != null){
+                $lesMois[] = $laLigne['mois'];
+                $laLigne = $res->fetch();
+            }
+            return $lesMois;
+        }
+/**
+ * Retourne le nom et prénom d'un visiteur
+ * 
+ * @param un id de visiteur
+ * @return un tableau contenant un nom et un prenom
+ */
+        public function getInfosDuVisiteur($idVisiteur){
+            $req = "select visiteur.nom as nom, visiteur.prenom as prenom from visiteur "
+                    . "where visiteur.id = '". $idVisiteur ."' and visiteur.comptable = 0";
+            $res = PdoGsb::$monPdo->query($req);
+            $laLigne = $res->fetch();
+            return $laLigne;
+        }
 }
+
 ?>

@@ -8,7 +8,7 @@
     
     </div>  
         <ul id="menuList">
-            <?php if ($comptable == 0){ ?>
+            <?php if ($_SESSION['comptable'] == 0){ ?>
                 <!-- Sommaire des visiteurs médicaux -->
                 <li >
                     Visiteur :<br>
